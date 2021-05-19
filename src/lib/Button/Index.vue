@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./custom.scss";
+@import "../custom.scss";
 .pure-btn {
   cursor: pointer;
   transition: all 0.3s;

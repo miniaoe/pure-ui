@@ -66,35 +66,91 @@
     </div>
     <div>
       <h3>信息框</h3>
-      <Button theme="primary">INFO</Button>
-      <Button theme="primary">SUCCESS</Button>
-      <Button theme="primary">WARNING</Button>
-      <Button theme="primary">DANGER</Button>
+      <Button theme="primary" @click="onMessage('info')">INFO</Button>
+      <Button theme="primary" @click="onMessage('success')">SUCCESS</Button>
+      <h3>信息框 带关闭按钮</h3>
+      <Button theme="primary" @click="onMessageClose('warning')">
+        WARNING
+      </Button>
+      <Button theme="primary" @click="onMessageClose('danger')">DANGER</Button>
+    </div>
+    <div>
+      <h3>弹窗</h3>
+      <Button theme="primary" @click="onMessageBox('alert')">消息提示</Button>
+      <Button theme="primary" @click="onMessageBox('confirm')">确认消息</Button>
+      <Button theme="primary" @click="onMessageBox('prompt')">提交内容</Button>
     </div>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
-import Button from "../lib/Button.vue";
-import Switch from "../lib/Switch.vue";
-import Input from "../lib/Input.vue";
-import Message from "../lib/Message.vue";
+import Button from "../lib/Button/Index.vue";
+import Switch from "../lib/Switch/Index.vue";
+import Input from "../lib/Input/Index.vue";
+
+import Message from "../lib/Message/Index.js";
+import MessageBox from "../lib/MessageBox/Index.js";
 
 export default {
   components: {
     Button,
     Switch,
     Input,
-    Message,
   },
-  Messagetup(props, context) {
+  setup(props, context) {
     const switchValue = ref(false);
     const inputValue = ref(null);
+    const onMessage = (type) => {
+      Message[type]("123");
+    };
+    const onMessageClose = (type) => {
+      Message[type]({ message: "111", duration: 5000, showClose: true });
+    };
+
+    const onMessageBox = (type) => {
+      switch (type) {
+        case "confirm":
+          MessageBox[type](
+            "确认消息",
+            "中国不能失去曹县，就像西方不能失去耶路撒冷。"
+          )
+            .then(() => {
+              console.log("点击确定");
+            })
+            .catch(() => {
+              console.log("取消或者失败");
+            });
+          break;
+
+        case "prompt":
+          MessageBox[type](
+            "确认消息",
+            "中国不能失去曹县，就像西方不能失去耶路撒冷。"
+          )
+            .then(() => {
+              console.log("点击确定");
+            })
+            .catch(() => {
+              console.log("取消或者失败");
+            });
+          break;
+
+        default:
+          MessageBox[type](
+            "消息提示",
+            "中国不能失去曹县，就像西方不能失去耶路撒冷。"
+          );
+          break;
+      }
+    };
 
     return {
       switchValue,
       inputValue,
+      onMessage,
+      onMessageClose,
+      onMessageBox,
     };
   },
 };

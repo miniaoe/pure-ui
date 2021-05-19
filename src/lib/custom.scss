@@ -24,8 +24,8 @@ $secondary-hover: #151515;
 $secondary-active: #080808;
 
 $danger: #f0506e;
-$danger-lighter: #f0506e30;
-$danger-light: #f0506e40;
+$danger-lighter: rgb(252 222 228);
+$danger-light: rgb(247 192 198);
 $danger-hover: #ee395b;
 $danger-active: #ec2147;
 
@@ -40,3 +40,5 @@ $success-lighter: #f0f9eb;
 $warning: #e6a23c;
 $warning-light: #faecd8;
 $warning-lighter: #fdf6ec;
+
+$shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);

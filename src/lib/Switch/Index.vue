@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./custom.scss";
+@import "../custom.scss";
 .pure-switch {
   display: inline-flex;
   align-items: center;

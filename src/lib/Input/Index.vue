@@ -84,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./custom.scss";
+@import "../custom.scss";
 .pure-input {
   border-radius: 0;
   padding: 0.6rem 0.8rem;
