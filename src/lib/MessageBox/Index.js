@@ -1,63 +1,68 @@
-import { createVNode, render } from "vue";
+import { createApp, h } from "vue";
 import MessageBox from "./Index.vue";
 
+const onClose = () => child.remove();
 let child = null;
-const close = () => child.remove();
 function createMessageBox(options) {
   const el = document.createElement("div");
-  const vm = createVNode(MessageBox, options);
-  render(vm, el);
+  const vm = createApp({
+    render() {
+      return h(MessageBox, options);
+    },
+  });
+  vm.mount(el);
   child = el.firstElementChild;
   document.body.appendChild(child);
 }
 
-class onMessageBox {
-  alert(title, content, options = {}) {
-    createMessageBox({ title, content, ...options, onClose: close });
-  }
+const onMessageBox = {};
+onMessageBox.alert = (title, content, options = {}) => {
+  const obj = {
+    boxType: "alert",
+    title,
+    content,
+    onClose,
+    ...options,
+  };
+  createMessageBox(obj);
+};
 
-  confirm(title, content, options = {}) {
-    return new Promise((resolve, reject) => {
-      const onCancel = () => {
-        close();
-        reject();
-      };
-      const onOk = () => {
-        resolve();
-      };
-      createMessageBox({
-        title,
-        content,
-        onClose: onCancel,
-        onCancel,
-        onOk,
-        showCancel: true,
-        ...options,
-      });
-    });
-  }
-
-  prompt(title, content, options) {
-    return new Promise((resolve, reject) => {
-      const onCancel = (err) => {
-        close();
+const onMessagePromise = (options) => {
+  return new Promise((resolve, reject) => {
+    const obj = {
+      onCancel: (err) => {
         reject(err);
-      };
-      const onOk = (val) => {
-        resolve(val);
-      };
-      createMessageBox({
-        title,
-        content,
-        onClose: onCancel,
-        onCancel,
-        onOk,
-        showCancel: true,
-        prompt: true,
-        ...options,
-      });
-    });
-  }
-}
+      },
+      onDone: (res) => {
+        resolve(res);
+      },
+      ...options,
+    };
+    createMessageBox(obj);
+  });
+};
 
-export default new onMessageBox();
+onMessageBox.confirm = (title, content, options = {}) => {
+  const obj = {
+    boxType: "confirm",
+    title,
+    content,
+    onClose,
+    showCancel: true,
+    ...options,
+  };
+  return onMessagePromise(obj);
+};
+onMessageBox.prompt = (title, content, options = {}) => {
+  const obj = {
+    boxType: "prompt",
+    title,
+    content,
+    onClose,
+    showCancel: true,
+    ...options,
+  };
+  return onMessagePromise(obj);
+};
+
+export default onMessageBox;

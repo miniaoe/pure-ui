@@ -1,11 +1,9 @@
 <template>
-  <div class="pure-message-box" @click.self="onClickShade" @mousewheel.prevent>
+  <div class="pure-message-box" @click.self="clickShade" @mousewheel.prevent>
     <div class="message-box">
-      <!-- <div v-if="!title && showClose" class="title"> -->
       <div class="title">
         <span>{{ title }}</span>
-        <!-- <span v-if="showClose" @click="onClickShade">x</span> -->
-        <svg viewBox="0 0 352 512" class="close-btn" @click.stop="onClickClose">
+        <svg viewBox="0 0 352 512" class="close-btn" @click.stop="clickCancel">
           <path
             fill="currentColor"
             d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
@@ -14,15 +12,20 @@
         </svg>
       </div>
       <div class="content">
-        <span v-if="!prompt">{{ content }}</span>
-        <Input v-else v-model:value="inputValue" />
+        <Input
+          v-if="boxType === 'prompt'"
+          v-model:value="inputValue"
+          class="input"
+          :placeholder="placeholder"
+        />
+        <span v-else>{{ content }}</span>
       </div>
       <div class="button">
-        <Button v-show="showCancel" size="small" @click="onClickCancel">
+        <Button v-show="showCancel" size="small" @click="clickCancel">
           {{ cancelText }}
         </Button>
-        <Button theme="primary" size="small" @click="onClickOk">
-          {{ okText }}
+        <Button theme="primary" size="small" @click="clickDone">
+          {{ donelText }}
         </Button>
       </div>
     </div>
@@ -35,18 +38,19 @@ import Button from "../Button/Index.vue";
 import Input from "../Input/Index.vue";
 export default {
   props: {
+    boxType: String,
     title: String,
     content: String,
-    showClose: { type: Boolean },
-    showCancel: { type: Boolean, default: false },
     cancelText: { type: String, default: "取消" },
-    okText: { type: String, default: "确认" },
+    donelText: { type: String, default: "确认" },
+    showCancel: { type: Boolean, default: false },
+    showClose: { type: Boolean, default: true },
     clickShadeClose: { type: Boolean, default: false },
+    placeholder: String,
     onClose: Function,
-    onOk: Function,
     onCancel: Function,
+    onDone: Function,
     callback: Function,
-    prompt: { type: Boolean, default: false },
   },
   components: {
     Button,
@@ -55,39 +59,38 @@ export default {
   setup(props, ctx) {
     const inputValue = ref(null);
 
-    const onClickShade = () => {
-      if (!props.clickShadeClose) return;
-      props.onClose();
-      onCallback("shade");
+    const { boxType, clickShadeClose, callback, onClose, onCancel, onDone } =
+      props;
+
+    const clickShade = () => {
+      if (clickShadeClose) clickCancel();
     };
 
-    const onClickClose = () => {
-      props.onClose();
-      onCallback("close");
+    const clickCancel = () => {
+      if (boxType === "alert") {
+        if (callback) callback("cancel");
+      }
+      if (boxType === "confirm" || boxType === "prompt") {
+        onCancel(false);
+      }
+      onClose();
     };
 
-    const onClickCancel = () => {
-      props.onCancel();
-      props.onClose();
-      onCallback("cancel");
-    };
-
-    const onClickOk = () => {
-      props.onOk();
-      props.onClose();
-      onCallback("ok");
-    };
-
-    const onCallback = (action) => {
-      if (props.callback) props.callback(action);
+    const clickDone = () => {
+      if (boxType === "alert") {
+        if (callback) callback("done");
+      }
+      if (boxType === "confirm" || boxType === "prompt") {
+        onDone(inputValue.value);
+      }
+      onClose();
     };
 
     return {
+      clickShade,
+      clickCancel,
+      clickDone,
       inputValue,
-      onClickShade,
-      onClickClose,
-      onClickCancel,
-      onClickOk,
     };
   },
 };
@@ -116,6 +119,11 @@ export default {
     box-shadow: $shadow;
     border-radius: 2px;
     width: 300px;
+    > .content {
+      > .input {
+        width: 100%;
+      }
+    }
     > .title {
       display: flex;
       justify-content: space-between;
