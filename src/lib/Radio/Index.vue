@@ -7,14 +7,7 @@
     :aria-disabled="disabled"
     @click="onClick"
   >
-    <input
-      type="radio"
-      class="isCheck"
-      :name="name"
-      hidden
-      :checked="isCheck"
-      @click.stop
-    />
+    <input type="radio" class="isCheck" hidden :checked="isCheck" @click.stop />
     <i class="radios"></i>
     <span class="text"><slot /></span>
   </label>
@@ -24,7 +17,6 @@
 import { computed } from "vue";
 export default {
   props: {
-    name: String,
     modelValue: {
       type: [String, Number, Boolean],
       default: "",
@@ -56,8 +48,8 @@ export default {
   cursor: pointer;
   > .radios {
     display: inline-block;
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
     vertical-align: -3px;
     border: 2px solid $border-lighter;
     border-radius: 50%;
@@ -71,7 +63,7 @@ export default {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: $primary;
+      background: $border-lighter;
       transition: all 0.3s;
     }
   }
@@ -83,7 +75,7 @@ export default {
     }
   }
   > .text {
-    margin-left: 0.3rem;
+    margin-left: 5px;
   }
   &-disabled {
     cursor: not-allowed;
@@ -92,7 +84,7 @@ export default {
       background: $border-lighter;
     }
     > .isCheck:checked + .radios {
-      background: transparent;
+      background: $color-white;
       border: 2px solid $border-lighter;
       &::after {
         background: $border-lighter;

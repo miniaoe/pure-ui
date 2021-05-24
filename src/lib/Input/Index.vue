@@ -7,7 +7,7 @@
     :disabled="disabled"
     :maxlength="maxlength"
     :minlength="minlength"
-    :value="value"
+    :value="modelValue"
     class="pure-input pure-input-textarea"
     :class="[
       { [`pure-input-${theme}`]: theme },
@@ -26,7 +26,7 @@
     :disabled="disabled"
     :maxlength="maxlength"
     :minlength="minlength"
-    :value="value"
+    :value="modelValue"
     class="pure-input"
     :class="[
       { [`pure-input-${theme}`]: theme },
@@ -43,7 +43,7 @@
 <script>
 export default {
   props: {
-    value: { type: String },
+    modelValue: { type: String },
     type: { type: String, default: "text" },
     theme: { type: String, default: "primary" },
     size: { type: String, default: "normal" },
@@ -57,7 +57,7 @@ export default {
   setup(props, ctx) {
     const handleInput = (event) => {
       const { value } = event.target;
-      ctx.emit("update:value", value);
+      ctx.emit("update:modelValue", value);
       ctx.emit("input", event);
     };
 
@@ -87,11 +87,10 @@ export default {
 @import "../custom.scss";
 .pure-input {
   border-radius: 0;
-  padding: 0.6rem 0.8rem;
   border: 1px solid $border-lighter;
   transition: all 0.3s;
   &-textarea {
-    padding: 0.3rem 0.4rem;
+    padding: 5px 6px;
     outline: none;
     &:focus {
       border: 1px solid $primary;
@@ -115,6 +114,24 @@ export default {
   &-disabled {
     cursor: not-allowed;
     background: text-secondary;
+  }
+  &-normal {
+    font-size: 15px !important;
+    line-height: 30px;
+    height: 40px;
+    padding: 0 10px;
+  }
+  &-large {
+    font-size: 18px !important;
+    line-height: 40px;
+    height: 50px;
+    padding: 0 15px;
+  }
+  &-small {
+    font-size: 12px !important;
+    line-height: 20px;
+    height: 30px;
+    padding: 0 7px;
   }
 }
 </style>

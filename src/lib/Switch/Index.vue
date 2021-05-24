@@ -34,7 +34,7 @@
 import { ref } from "vue";
 export default {
   props: {
-    value: { type: Boolean },
+    modelValue: { type: Boolean },
     activeColor: { type: String, default: "#c0ccda" },
     closeColor: { type: String, default: "#1e87f0" },
     width: { type: Number, default: 45, min: 40 },
@@ -43,10 +43,10 @@ export default {
     closeText: { type: String },
   },
   setup(props, context) {
-    const status = ref(props.value);
+    const status = ref(props.modelValue);
     const onClick = () => {
       status.value = !status.value;
-      context.emit("update:value", status.value);
+      context.emit("update:modelValue", status.value);
     };
     return { status, onClick };
   },
@@ -60,14 +60,14 @@ export default {
   align-items: center;
   > .switch {
     display: inline-block;
-    height: calc(1rem + 6px);
+    height: 22px;
     position: relative;
     cursor: pointer;
     transition: all 0.3s;
     &::after {
       content: "";
-      width: 1rem;
-      height: 1rem;
+      width: 16px;
+      height: 16px;
       background: $color-white;
       position: absolute;
       top: 3px;
@@ -78,7 +78,7 @@ export default {
     }
     &-check {
       &::after {
-        left: calc(100% - 1rem - 3px);
+        left: calc(100% - 19px);
       }
     }
     &-disabled {
@@ -93,11 +93,11 @@ export default {
   }
   > .active-text {
     display: inline-block;
-    margin-right: 0.5rem;
+    margin-right: 8px;
   }
   > .close-text {
     display: inline-block;
-    margin-left: 0.5rem;
+    margin-left: 8px;
   }
 }
 </style>

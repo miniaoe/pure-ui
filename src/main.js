@@ -1,4 +1,6 @@
 import "./lib/index.scss";
+import "github-markdown-css";
+import "vite-plugin-vuedoc/style.css";
 
 import { createApp } from "vue";
 import App from "./App.vue";

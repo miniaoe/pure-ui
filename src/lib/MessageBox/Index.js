@@ -30,11 +30,11 @@ onMessageBox.alert = (title, content, options = {}) => {
 const onMessagePromise = (options) => {
   return new Promise((resolve, reject) => {
     const obj = {
-      onCancel: (err) => {
-        reject(err);
-      },
       onDone: (res) => {
         resolve(res);
+      },
+      onCancel: (err) => {
+        reject(err);
       },
       ...options,
     };
@@ -53,6 +53,7 @@ onMessageBox.confirm = (title, content, options = {}) => {
   };
   return onMessagePromise(obj);
 };
+
 onMessageBox.prompt = (title, content, options = {}) => {
   const obj = {
     boxType: "prompt",

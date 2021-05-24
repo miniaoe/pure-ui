@@ -14,7 +14,7 @@
       <div class="content">
         <Input
           v-if="boxType === 'prompt'"
-          v-model:value="inputValue"
+          v-model="inputValue"
           class="input"
           :placeholder="placeholder"
         />
@@ -25,7 +25,7 @@
           {{ cancelText }}
         </Button>
         <Button theme="primary" size="small" @click="clickDone">
-          {{ donelText }}
+          {{ doneText }}
         </Button>
       </div>
     </div>
@@ -42,7 +42,7 @@ export default {
     title: String,
     content: String,
     cancelText: { type: String, default: "取消" },
-    donelText: { type: String, default: "确认" },
+    doneText: { type: String, default: "确认" },
     showCancel: { type: Boolean, default: false },
     showClose: { type: Boolean, default: true },
     clickShadeClose: { type: Boolean, default: false },
@@ -114,7 +114,7 @@ export default {
   transition: all 0.3s;
   > .message-box {
     background: $color-white;
-    padding: 1rem;
+    padding: 16px;
     border: 1px solid $info-light;
     box-shadow: $shadow;
     border-radius: 2px;
@@ -127,12 +127,12 @@ export default {
     > .title {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 0.7rem;
-      padding-bottom: 0.3rem;
+      margin-bottom: 11px;
+      padding-bottom: 5px;
       border-bottom: 1px solid $border-extra-light;
       > .close-btn {
-        min-width: 1rem;
-        height: 1rem;
+        min-width: 16px;
+        height: 16px;
         transition: all 0.3s;
         cursor: pointer;
         &:hover {
@@ -141,12 +141,12 @@ export default {
       }
     }
     .content {
-      margin-bottom: 1rem;
+      margin-bottom: 16px;
     }
     > .button {
       text-align: right;
       > button {
-        margin-left: 0.5rem;
+        margin-left: 8px;
       }
     }
   }

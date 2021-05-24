@@ -33,15 +33,16 @@ export default {
   transition: all 0.3s;
   border-radius: 0;
   border: 1px solid transparent;
+  line-height: 16px;
   .pure-btn-loading {
     display: inline-block;
     margin: -1px -2px -3px -2px;
-    width: 1rem;
-    height: 1rem;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: transparent;
     animation: pure-btn-loading 1s infinite;
-    margin-right: 0.5rem;
+    margin-right: 8px;
     border: 2px solid $color-white;
   }
 }
@@ -140,7 +141,7 @@ export default {
     }
   }
   &-text {
-    line-height: 1rem;
+    line-height: 16px;
     padding: 0 !important;
     background: $color-transparent;
     color: $text-primary;
@@ -181,16 +182,23 @@ export default {
   }
 }
 .pure-btn-size {
-  &-large {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-  }
   &-normal {
-    padding: 0.7rem 1.8rem;
+    font-size: 14px !important;
+    line-height: 30px;
+    height: 40px;
+    padding: 0 20px;
+  }
+  &-large {
+    font-size: 17px !important;
+    line-height: 40px;
+    height: 50px;
+    padding: 0 20px;
   }
   &-small {
-    padding: 0.35rem 0.9rem;
-    font-size: 0.5rem;
+    font-size: 12px !important;
+    line-height: 20px;
+    height: 30px;
+    padding: 0 20px;
   }
 }
 @keyframes pure-btn-loading {

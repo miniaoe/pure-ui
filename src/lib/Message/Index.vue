@@ -28,7 +28,6 @@ import { computed, ref } from "vue";
 export default {
   props: {
     type: { default: "info" },
-    close: { type: Boolean },
     message: String,
     id: String,
     offset: { type: Number, default: 20 },
@@ -73,7 +72,7 @@ export default {
   transform: translateX(-50%);
   background-color: #edf2fc;
   overflow: hidden;
-  padding: 1rem;
+  padding: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,12 +80,12 @@ export default {
   > .info {
     display: flex;
     > :first-child {
-      margin-right: 0.5rem;
+      margin-right: 8px;
     }
   }
   .icon {
-    width: 1rem;
-    height: 1rem;
+    width: 16px;
+    height: 16px;
   }
 
   > .close {
