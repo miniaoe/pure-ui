@@ -77,6 +77,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   transition: all 1s;
+  z-index: 2000;
   > .info {
     display: flex;
     > :first-child {

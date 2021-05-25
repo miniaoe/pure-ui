@@ -7,9 +7,13 @@
       <div class="nav">
         <a href="//github.com" target="_blank">Github</a>
       </div>
+      <span class="mob-menu" @click="mobMenu = !mobMenu">
+        <img src="../assets/bars.svg" />
+      </span>
     </div>
     <div class="content">
-      <div class="menu">
+      <div class="shade" v-if="mobMenu" @click="mobMenu = !mobMenu"></div>
+      <div class="menu" :class="{ 'menu-active': mobMenu }">
         <div class="item">
           <h3>文档</h3>
           <ul>
@@ -52,6 +56,22 @@
   </div>
 </template>
 
+<script>
+import { ref, watch } from "vue";
+import { onBeforeRouteUpdate } from "vue-router";
+export default {
+  setup(props, ctx) {
+    const mobMenu = ref(false);
+
+    onBeforeRouteUpdate((to) => {
+      mobMenu.value = false;
+    });
+
+    return { mobMenu };
+  },
+};
+</script>
+
 <style lang="scss" scoped>
 .main {
   height: 100vh;
@@ -65,15 +85,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 30;
   .logo {
     font-size: 1.8rem;
     font-weight: 600;
     cursor: pointer;
   }
+  .mob-menu {
+    display: none;
+  }
 }
 .content {
   flex-grow: 1;
   display: flex;
+  .shade {
+    display: none;
+    z-index: 10;
+  }
   .menu {
     width: 250px;
     height: auto;
@@ -81,6 +109,7 @@
     padding-top: 1rem;
     box-shadow: 5px 0 5px rgb(51 51 51 / 10%);
     border: 1px solid #e8e8e8;
+    z-index: 20;
     > .item {
       margin-bottom: 1rem;
       h3 {
@@ -99,18 +128,66 @@
   .docs {
     flex: 1;
     padding: 1rem 2rem;
+    max-height: calc(100vh - 80px);
+    overflow: auto;
   }
 }
 .active {
   color: #1e87f0;
 }
-::v-deep {
-  .item {
-    margin-right: 0.3rem;
+
+::v-deep(.item) {
+  margin-right: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+::v-deep(.markdown-body table) {
+  display: table;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 0.5rem;
+    background: #fff;
+    .nav {
+      display: none;
+    }
+    .mob-menu {
+      display: inline-block;
+      width: 1.5rem;
+      margin-right: 1rem;
+      > img {
+        vertical-align: bottom;
+      }
+    }
   }
-  .markdown-body table {
-    display: table;
-    font-size: 14px;
+
+  .content {
+    position: relative;
+    .menu {
+      position: absolute;
+      background: #fff;
+      min-height: calc(100vh - 80px);
+      left: -100%;
+      transition: all 0.3s;
+      border: none;
+      &-active {
+        left: 0;
+      }
+    }
+    .shade {
+      display: block;
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background: transparent;
+      left: 0;
+      top: 0;
+    }
+    .docs {
+      padding: 0.5rem;
+      max-width: 100%;
+    }
   }
 }
 </style>
