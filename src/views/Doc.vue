@@ -5,7 +5,7 @@
         <a href="./"> Pure UI </a>
       </div>
       <div class="nav">
-        <a href="//github.com" target="_blank">Github</a>
+        <a href="//github.com/miniaoe/pure-ui" target="_blank">Github</a>
       </div>
       <span class="mob-menu" @click="mobMenu = !mobMenu">
         <img src="../assets/bars.svg" />

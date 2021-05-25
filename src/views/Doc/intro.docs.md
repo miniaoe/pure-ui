@@ -5,3 +5,7 @@
 如果你觉得还不错的话可以前往 Github 给我一个 Start。
 
 ⚠️ **另外不建议应用 Pure UI 至生产环境**。
+
+### 其他
+
+前往 [Github](https://github.com/miniaoe/pure-ui) 查看源码， 如果你觉得不错的话可以给我一个 🌟

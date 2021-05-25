@@ -15,7 +15,9 @@
           <router-link to="/doc">
             <Button theme="primary">🛩️ 开始使用吧</Button>
           </router-link>
-          <Button theme="secondary">✨ Github</Button>
+          <a href="//github.com/miniaoe/pure-ui" target="_blank">
+            <Button theme="secondary">✨ Github</Button>
+          </a>
         </div>
       </div>
     </div>
