@@ -1,7 +1,3 @@
----
-wrapperClass: "markdown-body"
----
-
 ## input 输入框
 
 > input 通常应处理 `input` 事件，并更新组件绑定值（v-model）

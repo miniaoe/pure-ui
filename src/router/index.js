@@ -2,7 +2,6 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 import Home from "../views/Home.vue";
 import Doc from "../views/Doc.vue";
-import AA from "../views/AA.vue";
 import Intro from "../views/Doc/intro.docs.md";
 import Button from "../views/Doc/button.docs.md";
 import Input from "../views/Doc/input.docs.md";
@@ -16,7 +15,6 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     { path: "/", component: Home },
-    { path: "/aa", component: AA },
     {
       path: "/doc",
       component: Doc,

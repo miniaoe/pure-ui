@@ -1,7 +1,3 @@
----
-wrapperClass: "markdown-body"
----
-
 ## message 消息提示
 
 ### 基础用法

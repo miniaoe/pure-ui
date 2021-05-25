@@ -1,7 +1,3 @@
----
-wrapperClass: "markdown-body"
----
-
 ## radio 单选框
 
 ### 基础用法

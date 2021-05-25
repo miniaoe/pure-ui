@@ -1,7 +1,3 @@
----
-wrapperClass: "markdown-body"
----
-
 ## checkbox 多选框
 
 ### 基础用法

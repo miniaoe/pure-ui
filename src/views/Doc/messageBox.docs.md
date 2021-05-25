@@ -1,7 +1,3 @@
----
-wrapperClass: "markdown-body"
----
-
 ## message-box 弹框
 
 ### 消息提示

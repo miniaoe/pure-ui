@@ -1,7 +1,3 @@
----
-wrapperClass: "markdown-body"
----
-
 ## button 按钮
 
 ### **基础用法**
